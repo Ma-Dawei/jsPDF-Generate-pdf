@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple example</title>
+</head>
+<body>
+    <button onclick="generate()">导出 pdf</button>
+    <!-- pdf展示 -->
+    <div style="height:100vh">
+        <iframe id="output" src="" frameborder="0" width="100%" height="95%"></iframe>
+    </div>
+
+
+<script src="./js/jquery-1.10.2.min.js"></script>
+<script src="./dist/jspdf.min.js"></script>
+<!-- <script src="./dist/jspdf.customfonts.min.js"></script> -->
+<!-- <script src="default_vfs.js"></script> -->
+<script src="./dist/jspdf.plugin.autotable.js" charset="utf-8"></script>
+<script src="./js/faker.min.js"></script>
+<script src="./dist/fs_gb2312.js"></script>
+<script src="./dist/fs_bold-bold.js"></script>
+
+<script>
+		var YJBM = '广州市档案馆';
+        <!-- var columns = ["字轨", "Name", "Age", "City"]; // 表头 -->
+        var data = [        // tableDate
+            [1, "展示", 25, "G展示"],
+            [2, "Simon", 23, "Gothenburg"],
+            [3, "Hanna", 21, "Stockholm"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"], 
+			[1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "zg", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [2, "Simon", 23, "Gothenburg"],
+			 [1, "Jonatan", 25, "Gothenburg"],
+            [232, "Simon", 23, "Gothenburg"]
+        ];
+            
+        var doc = new jsPDF('p', 'pt'); // 获取实例
+		doc.addFileToVFS('fs_gb2312-normal.ttf', font);
+        doc.addFont('fs_gb2312-normal.ttf', 'fs_gb2312', 'normal');
+		doc.setFont("fs_gb2312");
+		
+		<!-- doc.setFontType("italic"); -->
+		doc.text("打印日期：",400 , 60);
+		doc.text("捆号：",60 , 60);
+		doc.addFileToVFS('fs_bold-bold.ttf', font);
+        doc.addFont('fs_bold-bold.ttf', 'fs_bold', 'bold');
+		doc.setFont("fs_bold");
+		doc.setProperties({
+            title: 'Example:0000000000 ',
+            subject: 'A jspdf-autotable example pdf '
+        });
+        <!-- doc.autoTable({columns, data,{startY:100},styles:{font:"fs_gb2312"}});   // 渲染table ,{theme:'grid'} -->
+		
+		doc.autoTable({                   // 这是动态获取后台table数据数据导出，如果用这个，则注释掉 46行、69-79行即可
+            columns: [       // 可以传参
+                { header: '字轨', dataKey: 'ZG' },
+                { header: '案号', dataKey: 'AH' },
+                { header: '业务号', dataKey: 'YWH' },
+				{ header: '登记种类', dataKey: 'YWLX' },
+            ], 
+			 body: [           // 可以传参
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+                { ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '20登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+				{ ZG: '21登记', AH: '0253262', YWH: 'BM0256895' ,YWLX:'抵押权'},
+            ],
+			headStyles: {
+					<!-- fillColor: [255, 255, 255], -->
+					<!-- fontStyle: 'bold', -->
+					font: 'fs_bold',
+					fontSize: 14,
+					textColor: [0, 0, 0],
+			},
+			 bodyStyles: {
+				<!-- fillColor: [255, 255, 255], -->
+				textColor: [0, 0, 0]
+			},
+			alternateRowStyles : {
+				<!-- fillColor: [255, 255, 255], -->
+				textColor: [0, 0, 0]
+			},
+            styles: {
+				halign: 'center', // left, center, right
+				valign: 'middle', // top, middle, bottom
+				fontSize: 12,
+				font: 'fs_gb2312',
+				lineColor: [0, 0, 0],
+				lineWidth: 1,},// 样式配置，有些类似canvas
+			<!-- columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, -->
+			startY:70,
+			<!-- showFoot: 'everyPage', -->
+			<!-- pageNumber: number, -->
+			theme: 'plain',
+        }),
+		doc.addFileToVFS('fs_gb2312-normal.ttf', font);
+        doc.addFont('fs_gb2312-normal.ttf', 'fs_gb2312', 'normal');
+		doc.setFont("fs_gb2312");
+		
+		doc.text('移交部门:'+YJBM, 320, doc.autoTable.previous.finalY + 20);
+        document.getElementById("output").src = doc.output('datauristring');   // 渲染pdf
+
+        function generate() {   // 导出pdf
+            doc.save("table.pdf");
+        }
+</script>
+</body>
+</html>
